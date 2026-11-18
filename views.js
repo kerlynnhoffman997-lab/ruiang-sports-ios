@@ -97,7 +97,7 @@ function equippedAccessory() {
   return accessory ? `<span class="equipped-item" title="已穿戴">${itemImage(accessory)}<span>已穿戴 · ${accessory.name}</span></span>` : '';
 }
 
-function hero() {
+function hero(trainingLink) {
   const outfit = outfitById(state.outfit);
   const greeting = state.avatar === 'lion' ? '今天也要一起运动哦！' : '今天一起去骑行！';
   return `<section class="hero">
@@ -105,7 +105,10 @@ function hero() {
       <span class="hero-kicker">醒狮少年</span>
       <h2>我的瑞昂</h2>
       <p id="hero-dialogue" class="speech">${greeting}</p>
-      <button class="button button-dark" data-action="avatar">${icon('switch',17)}切换形象</button>
+      <div class="hero-actions">
+        <a class="button button-primary hero-training" href="${trainingLink}">去训练 ${icon('arrow',16)}</a>
+        <button class="button button-dark hero-avatar-button" data-action="avatar" aria-label="切换形象">${icon('switch',17)}<span>切换形象</span></button>
+      </div>
       ${state.avatar === 'lion' ? equippedAccessory() : ''}
     </div>
     <div class="hero-illustration">
@@ -143,6 +146,8 @@ function courseCard(course, {plan,compact = false} = {}) {
 
 function homeView() {
   const pending = plansFor(today()).filter(plan => !plan.done);
+  const nextPlan = pending[0];
+  const trainingLink = nextPlan ? hashFor('course',nextPlan.course,{plan:nextPlan.id}) : '#train';
   const recommended = pending.length ? pending.slice(0,2).map(plan => courseCard(courseById(plan.course),{plan,compact:true})).join('')
     : [COURSES[0],COURSES[1]].map(course => courseCard(course,{compact:true})).join('');
   return `<div class="home-toolbar">
@@ -155,7 +160,7 @@ function homeView() {
     kicker:icon('calendar',16)+friendlyDate(today()),
     className:'home-head',
   })}
-  ${hero()}
+  ${hero(trainingLink)}
   ${homeProgress()}
   ${shortcutCards()}
   <section class="home-training">

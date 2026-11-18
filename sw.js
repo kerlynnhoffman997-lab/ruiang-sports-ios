@@ -1,6 +1,6 @@
 const scope = new URL(self.registration.scope);
 const cachePrefix = 'ruiang-mobile:'+scope.href+':';
-const cacheName = cachePrefix+'v4-ios-standalone';
+const cacheName = cachePrefix+'v5-phone';
 const outfitNames = ['sport','running','badminton','basketball','football','yoga','tang','hanfu','casual','festive'];
 const propNames = ['coin','fruit','bottle','bell','headband','wristband','ribbon','gift'];
 const images = [
