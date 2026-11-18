@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'ruiang-move-v1';
+const STORAGE_KEY = 'ruiang-move-ios-v1';
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
 const toastNode = document.querySelector('#toast');
